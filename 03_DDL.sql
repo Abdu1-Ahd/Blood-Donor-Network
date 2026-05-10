@@ -63,16 +63,17 @@ CREATE TABLE STAFF (
     CONSTRAINT fk_staff_bank FOREIGN KEY (ref_bank_id) REFERENCES BLOOD_BANK(bank_id)
 );
 
--- Section: ADMIN
+-- Section: ADMIN_STAFF
 
 -- 3NF: No partial dependencies (single-col PK). No transitive dependencies.
-CREATE TABLE ADMIN (
+CREATE TABLE ADMIN_STAFF (
     admin_id NUMBER,
     ref_staff_id NUMBER,
     admin_level NUMBER NOT NULL,
     can_approve CHAR(1),
-    CONSTRAINT pk_admin PRIMARY KEY (admin_id),
-    CONSTRAINT fk_admin_staff FOREIGN KEY (ref_staff_id) REFERENCES STAFF(staff_id) ON DELETE CASCADE
+    CONSTRAINT pk_admin_staff PRIMARY KEY (admin_id),
+    CONSTRAINT fk_admin_staff FOREIGN KEY (ref_staff_id) REFERENCES STAFF(staff_id) ON DELETE CASCADE,
+    CONSTRAINT chk_admin_approve CHECK (can_approve IN ('Y','N'))
 );
 
 -- Section: TECHNICIAN
@@ -84,7 +85,8 @@ CREATE TABLE TECHNICIAN (
     specialization VARCHAR2(100) NOT NULL,
     lab_certified CHAR(1),
     CONSTRAINT pk_technician PRIMARY KEY (tech_id),
-    CONSTRAINT fk_technician_staff FOREIGN KEY (ref_staff_id) REFERENCES STAFF(staff_id) ON DELETE CASCADE
+    CONSTRAINT fk_technician_staff FOREIGN KEY (ref_staff_id) REFERENCES STAFF(staff_id) ON DELETE CASCADE,
+    CONSTRAINT chk_tech_certified CHECK (lab_certified IN ('Y','N'))
 );
 
 -- Section: RECIPIENT
@@ -98,7 +100,8 @@ CREATE TABLE RECIPIENT (
     ref_hospital_id NUMBER,
     admitted_date DATE,
     CONSTRAINT pk_recipient PRIMARY KEY (recipient_id),
-    CONSTRAINT fk_recipient_hospital FOREIGN KEY (ref_hospital_id) REFERENCES HOSPITAL(hospital_id) ON DELETE SET NULL
+    CONSTRAINT fk_recipient_hospital FOREIGN KEY (ref_hospital_id) REFERENCES HOSPITAL(hospital_id) ON DELETE SET NULL,
+    CONSTRAINT chk_recipient_blood_group CHECK (blood_group IN ('A+','A-','B+','B-','AB+','AB-','O+','O-'))
 );
 
 -- Section: DONATION
@@ -106,7 +109,7 @@ CREATE TABLE RECIPIENT (
 -- 3NF: No partial dependencies (single-col PK). No transitive dependencies.
 CREATE TABLE DONATION (
     donation_id NUMBER,
-    ref_donor_id NUMBER,
+    ref_donor_id NUMBER NOT NULL,
     ref_bank_id NUMBER,
     donation_date DATE NOT NULL,
     units_donated NUMBER,
@@ -135,7 +138,7 @@ CREATE TABLE BLOOD_STOCK (
 -- 3NF: No partial dependencies (single-col PK). No transitive dependencies.
 CREATE TABLE REQUEST (
     request_id NUMBER,
-    ref_recipient_id NUMBER,
+    ref_recipient_id NUMBER NOT NULL,
     ref_bank_id NUMBER,
     blood_group VARCHAR2(5) NOT NULL,
     units_needed NUMBER,
@@ -158,6 +161,20 @@ CREATE TABLE HOSPITAL_BANK (
     CONSTRAINT fk_hb_hospital FOREIGN KEY (ref_hospital_id) REFERENCES HOSPITAL(hospital_id),
     CONSTRAINT fk_hb_bank FOREIGN KEY (ref_bank_id) REFERENCES BLOOD_BANK(bank_id)
 );
+
+-- Section: Sequences
+
+CREATE SEQUENCE seq_hospital     START WITH 1 INCREMENT BY 1 NOCACHE NOCYCLE;
+CREATE SEQUENCE seq_blood_bank   START WITH 1 INCREMENT BY 1 NOCACHE NOCYCLE;
+CREATE SEQUENCE seq_donor        START WITH 1 INCREMENT BY 1 NOCACHE NOCYCLE;
+CREATE SEQUENCE seq_staff        START WITH 1 INCREMENT BY 1 NOCACHE NOCYCLE;
+CREATE SEQUENCE seq_admin_staff  START WITH 1 INCREMENT BY 1 NOCACHE NOCYCLE;
+CREATE SEQUENCE seq_technician   START WITH 1 INCREMENT BY 1 NOCACHE NOCYCLE;
+CREATE SEQUENCE seq_recipient    START WITH 1 INCREMENT BY 1 NOCACHE NOCYCLE;
+CREATE SEQUENCE seq_donation     START WITH 1 INCREMENT BY 1 NOCACHE NOCYCLE;
+CREATE SEQUENCE seq_blood_stock  START WITH 1 INCREMENT BY 1 NOCACHE NOCYCLE;
+CREATE SEQUENCE seq_request      START WITH 1 INCREMENT BY 1 NOCACHE NOCYCLE;
+CREATE SEQUENCE seq_hospital_bank START WITH 1 INCREMENT BY 1 NOCACHE NOCYCLE;
 
 -- Section: Indexes
 
