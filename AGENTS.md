@@ -6,6 +6,7 @@
 - Members: Abdul Ahad (24F-0727), Jazib (24F-0691)
 - GUI: Node.js + HTML/CSS/JS
 - Database: Oracle (scripts written now, connected later)
+- GitHub: https://github.com/jazi-B/blood-donor-network
 
 ## Execution Rules
 - GENERATE mock data/tests automatically for data-heavy projects.
@@ -43,7 +44,7 @@
 - .gitignore must cover: node_modules/, *.log, .env, cache/
 
 ## Phase Tracking
-- Phase 0: Scaffold — DONE after this prompt
+- Phase 0: Scaffold — DONE
 - Phase 1: SRS + Data Dictionary — PENDING
 - Phase 2A: ERD + EERD — PENDING
 - Phase 2B: DDL Schema — PENDING
