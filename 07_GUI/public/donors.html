@@ -1,1 +1,121 @@
-<!-- empty placeholder -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donors - Blood Donor Network</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">BDN Admin</div>
+        <div class="sidebar-nav">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="donors.html" class="active">Donors</a>
+            <a href="recipients.html">Recipients</a>
+            <a href="requests.html">Requests</a>
+            <a href="stock.html">Blood Stock</a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="topbar">
+            <h2>Donors Management</h2>
+            <div class="user-info">
+                <span id="userName">User</span>
+                <button class="btn btn-sm btn-secondary" onclick="logout()">Logout</button>
+            </div>
+        </div>
+
+        <div class="content-wrapper">
+            <div class="action-bar">
+                <div class="search-box">
+                    <input type="text" id="searchCity" placeholder="Filter by City...">
+                    <select id="searchBg">
+                        <option value="">All Blood Groups</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                    </select>
+                    <button class="btn" onclick="searchDonors()">Search</button>
+                    <button class="btn btn-secondary" onclick="loadDonors()">Reset</button>
+                </div>
+                <button class="btn btn-success" onclick="window.location.href='/api/donors/export'">Export CSV</button>
+            </div>
+
+            <!-- Add/Edit Form -->
+            <div class="form-container">
+                <h3 id="formTitle">Add New Donor</h3>
+                <form id="donorForm">
+                    <input type="hidden" id="donor_id">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" id="full_name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>DOB</label>
+                            <input type="date" id="dob" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Blood Group</label>
+                            <select id="blood_group" required>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Contact No</label>
+                            <input type="text" id="contact_no" required pattern="[0-9-]+" title="Only numbers and dashes">
+                        </div>
+                        <div class="form-group">
+                            <label>City</label>
+                            <input type="text" id="city" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Eligible?</label>
+                            <select id="is_eligible">
+                                <option value="Y">Yes (Y)</option>
+                                <option value="N">No (N)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn">Save Donor</button>
+                    <button type="button" class="btn btn-secondary" onclick="resetForm()">Clear</button>
+                </form>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>DOB</th>
+                            <th>Group</th>
+                            <th>Contact</th>
+                            <th>City</th>
+                            <th>Eligible</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="donorsTable"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/donors.js"></script>
+</body>
+</html>

@@ -1,1 +1,88 @@
-<!-- empty placeholder -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Blood Donor Network</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">BDN Admin</div>
+        <div class="sidebar-nav">
+            <a href="dashboard.html" class="active">Dashboard</a>
+            <a href="donors.html">Donors</a>
+            <a href="recipients.html">Recipients</a>
+            <a href="requests.html">Requests</a>
+            <a href="stock.html">Blood Stock</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="topbar">
+            <h2>Overview Dashboard</h2>
+            <div class="user-info">
+                <span id="userName">User</span>
+                <span class="status-badge status-approved" id="userRole">Role</span>
+                <button class="btn btn-sm btn-secondary" onclick="logout()">Logout</button>
+            </div>
+        </div>
+
+        <div class="content-wrapper">
+            <!-- KPIs -->
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-title">Total Donors</div>
+                    <div class="kpi-value" id="kpiDonors">-</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-title">Total Requests</div>
+                    <div class="kpi-value" id="kpiReqs">-</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-title">Pending Requests</div>
+                    <div class="kpi-value" id="kpiPend">-</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-title">Total Stock Units</div>
+                    <div class="kpi-value" id="kpiStock">-</div>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <h3>Donations by Blood Group</h3>
+                    <canvas id="barChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3>Requests by Status</h3>
+                    <canvas id="pieChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="table-container">
+                <h3>Top 5 Blood Banks (Inventory)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Bank Name</th>
+                            <th>City</th>
+                            <th>Total Units</th>
+                        </tr>
+                    </thead>
+                    <tbody id="topBanksTable">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

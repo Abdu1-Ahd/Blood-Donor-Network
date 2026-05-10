@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Requests - Blood Donor Network</title>
+    <title>Blood Stock - Blood Donor Network</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -13,14 +13,14 @@
             <a href="dashboard.html">Dashboard</a>
             <a href="donors.html">Donors</a>
             <a href="recipients.html">Recipients</a>
-            <a href="requests.html" class="active">Requests</a>
-            <a href="stock.html">Blood Stock</a>
+            <a href="requests.html">Requests</a>
+            <a href="stock.html" class="active">Blood Stock</a>
         </div>
     </div>
 
     <div class="main-content">
         <div class="topbar">
-            <h2>Blood Requests Management</h2>
+            <h2>Blood Stock Inventory</h2>
             <div class="user-info">
                 <span id="userName">User</span>
                 <button class="btn btn-sm btn-secondary" onclick="logout()">Logout</button>
@@ -29,27 +29,23 @@
 
         <div class="content-wrapper">
             <div class="action-bar">
-                <div>
-                    <button class="btn" onclick="loadRequests()">Show All</button>
-                    <button class="btn btn-secondary" onclick="loadRequests('pending')">Show Pending Only</button>
+                <div class="form-group" style="flex-direction: row; align-items: center;">
+                    <label style="margin-right: 10px;">Filter by Bank:</label>
+                    <select id="filterBank" onchange="loadStock()">
+                        <option value="">-- All Banks --</option>
+                    </select>
                 </div>
-                <button class="btn btn-success" onclick="window.location.href='/api/requests/export/pending'">Export Pending CSV</button>
             </div>
 
-            <!-- Add Form -->
+            <!-- Add/Edit Form -->
             <div class="form-container">
-                <h3>Submit New Request</h3>
-                <form id="requestForm">
+                <h3 id="formTitle">Add/Update Stock Entry</h3>
+                <form id="stockForm">
+                    <input type="hidden" id="stock_id">
                     <div class="form-grid">
                         <div class="form-group">
-                            <label>Recipient</label>
-                            <select id="ref_recipient_id" required></select>
-                        </div>
-                        <div class="form-group">
-                            <label>Target Bank (Optional)</label>
-                            <select id="ref_bank_id">
-                                <option value="">-- Any Bank --</option>
-                            </select>
+                            <label>Blood Bank</label>
+                            <select id="ref_bank_id" required></select>
                         </div>
                         <div class="form-group">
                             <label>Blood Group</label>
@@ -65,11 +61,12 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Units Needed</label>
-                            <input type="number" id="units_needed" min="1" max="10" required>
+                            <label>Units Available</label>
+                            <input type="number" id="units_available" min="0" required>
                         </div>
                     </div>
-                    <button type="submit" class="btn">Submit Request</button>
+                    <button type="submit" class="btn">Save Entry</button>
+                    <button type="button" class="btn btn-secondary" onclick="resetForm()">Clear</button>
                 </form>
             </div>
 
@@ -77,22 +74,20 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Recipient</th>
-                            <th>Bank</th>
-                            <th>Group</th>
-                            <th>Units</th>
-                            <th>Date</th>
-                            <th>Status</th>
+                            <th>Stock ID</th>
+                            <th>Bank Name</th>
+                            <th>Blood Group</th>
+                            <th>Units Available</th>
+                            <th>Last Updated</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="requestsTable"></tbody>
+                    <tbody id="stockTable"></tbody>
                 </table>
             </div>
         </div>
     </div>
 
-    <script src="js/requests.js"></script>
+    <script src="js/stock.js"></script>
 </body>
 </html>
