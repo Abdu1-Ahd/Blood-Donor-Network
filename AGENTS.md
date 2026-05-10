@@ -46,7 +46,7 @@
 ## Phase Tracking
 - Phase 0: Scaffold — DONE
 - Phase 1: SRS + Data Dictionary — DONE
-- Phase 2A: ERD + EERD — PENDING
+- Phase 2A: ERD + EERD — DONE
 - Phase 2B: DDL Schema — PENDING
 - Phase 2C: Data Population — PENDING
 - Phase 2D: Queries — PENDING
