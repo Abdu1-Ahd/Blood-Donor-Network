@@ -50,7 +50,7 @@
 - Phase 2B: DDL Schema — DONE
 - Phase 2C: Data Population — DONE
 - Phase 2D: Queries — DONE
-- Phase 3: GUI (mock data) — PENDING
+- Phase 3: GUI (Live Data) — DONE
 - Phase 4: PL/SQL — DONE
-- Phase 5: Oracle Connection — PENDING (waiting for Oracle setup)
+- Phase 5: Oracle Connection — DONE
 - Phase 6: Report Draft — PENDING
