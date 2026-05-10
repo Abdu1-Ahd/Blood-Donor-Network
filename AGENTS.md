@@ -47,7 +47,7 @@
 - Phase 0: Scaffold — DONE
 - Phase 1: SRS + Data Dictionary — DONE
 - Phase 2A: ERD + EERD — DONE
-- Phase 2B: DDL Schema — PENDING
+- Phase 2B: DDL Schema — DONE
 - Phase 2C: Data Population — PENDING
 - Phase 2D: Queries — PENDING
 - Phase 3: GUI (mock data) — PENDING
