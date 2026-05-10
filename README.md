@@ -29,4 +29,5 @@ CL2005 Database Systems Lab — FAST NUCES CFD Campus, Spring 2026
 *(Placeholder - instructions will be added once Oracle connection and GUI are fully set up)*
 
 ## GitHub
-https://github.com/jazi-B/blood-donor-network
+## GitHub
+https://github.com/Abdu1-Ahd/Blood-Donor-Network

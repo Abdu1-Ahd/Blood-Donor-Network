@@ -6,7 +6,7 @@
 - Members: Abdul Ahad (24F-0727), Jazib (24F-0691)
 - GUI: Node.js + HTML/CSS/JS
 - Database: Oracle (scripts written now, connected later)
-- GitHub: https://github.com/jazi-B/blood-donor-network
+- GitHub: https://github.com/Abdu1-Ahd/Blood-Donor-Network
 
 ## Execution Rules
 - GENERATE mock data/tests automatically for data-heavy projects.
