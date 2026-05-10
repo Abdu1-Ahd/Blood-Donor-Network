@@ -1,0 +1,11 @@
+node_modules/
+*.log
+.env
+*.env
+cache/
+bin/
+obj/
+__pycache__/
+.vs/
+dist/
+*.tmp
