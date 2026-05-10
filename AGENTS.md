@@ -53,4 +53,4 @@
 - Phase 3: GUI (Live Data) — DONE
 - Phase 4: PL/SQL — DONE
 - Phase 5: Oracle Connection — DONE
-- Phase 6: Report Draft — PENDING
+- Phase 6: Report Draft — DONE
