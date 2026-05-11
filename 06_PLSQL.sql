@@ -37,7 +37,7 @@ CREATE OR REPLACE PROCEDURE proc_update_request_status (
     p_new_status IN VARCHAR2
 ) AS
 BEGIN
-    IF p_new_status NOT IN ('Pending', 'Approved', 'Rejected') THEN
+    IF p_new_status NOT IN ('Pending', 'Approved', 'Rejected', 'Fulfilled') THEN
         RAISE_APPLICATION_ERROR(-20001, 'Invalid status value');
     END IF;
     
