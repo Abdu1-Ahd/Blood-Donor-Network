@@ -74,10 +74,22 @@ router.get('/bank/:bank_id', async (req, res) => {
 router.post('/', async (req, res) => {
     let connection;
     try {
-        const { ref_bank_id, blood_group, units_available } = req.body;
-        if (!ref_bank_id || !blood_group || units_available === undefined) {
-            return res.status(400).json({ error: 'All fields are required' });
+        let { ref_bank_id, blood_group, units_available } = req.body;
+        
+        // 1. blood_group: required, valid value
+        const validBG = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
+        if (!blood_group || !validBG.includes(blood_group)) {
+            return res.status(400).json({ error: 'Invalid blood group value' });
         }
+
+        // 2. units_available: required, non-negative
+        units_available = parseInt(units_available);
+        if (isNaN(units_available) || units_available < 0) {
+            return res.status(400).json({ error: 'Units available must be a non-negative number' });
+        }
+
+        // 3. ref_bank_id: required
+        if (!ref_bank_id) return res.status(400).json({ error: 'Blood bank selection is required' });
 
         connection = await getConnection();
         
@@ -104,10 +116,11 @@ router.put('/:id', async (req, res) => {
     let connection;
     try {
         const { id } = req.params;
-        const { units_available } = req.body;
+        let { units_available } = req.body;
         
-        if (units_available === undefined) {
-            return res.status(400).json({ error: 'units_available is required' });
+        units_available = parseInt(units_available);
+        if (isNaN(units_available) || units_available < 0) {
+            return res.status(400).json({ error: 'Units available must be a non-negative number' });
         }
 
         connection = await getConnection();

@@ -1,6 +1,20 @@
-const user = JSON.parse(localStorage.getItem('user'));
-if (!user) window.location.href = 'login.html';
-document.getElementById('userName').innerText = user.full_name;
+function checkAuth() {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user || !user.staff_id) {
+        window.location.href = 'login.html';
+        return false;
+    }
+    if (user.role !== 'Admin') {
+        window.location.href = 'donor_portal.html';
+        return false;
+    }
+    return user;
+}
+
+const user = checkAuth();
+if (user) {
+    document.getElementById('userName').innerText = user.full_name;
+}
 
 function logout() {
     localStorage.removeItem('user');

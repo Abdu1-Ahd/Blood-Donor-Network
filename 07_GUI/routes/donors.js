@@ -85,10 +85,22 @@ router.get('/export', async (req, res) => {
 router.post('/', async (req, res) => {
     let connection;
     try {
-        const { full_name, dob, blood_group, contact_no, city, is_eligible } = req.body;
-        if (!full_name || !dob || !blood_group || !contact_no || !city || !is_eligible) {
-            return res.status(400).json({ error: 'All fields are required' });
-        }
+        let { full_name, dob, blood_group, contact_no, city, is_eligible } = req.body;
+        
+        // 1. full_name: required, not empty
+        if (!full_name || !full_name.trim()) return res.status(400).json({ error: 'Full name is required' });
+        
+        // 2. blood_group: must be valid
+        const validBG = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
+        if (!validBG.includes(blood_group)) return res.status(400).json({ error: 'Invalid blood group value' });
+        
+        // 3. contact_no: required, must be numeric
+        if (!contact_no || isNaN(contact_no)) return res.status(400).json({ error: 'Contact number must be numeric' });
+        
+        // 4. city: required
+        if (!city || !city.trim()) return res.status(400).json({ error: 'City is required' });
+
+        if (!dob || !is_eligible) return res.status(400).json({ error: 'All fields are required' });
 
         connection = await getConnection();
         

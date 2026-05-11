@@ -1,6 +1,20 @@
-const user = JSON.parse(localStorage.getItem('user'));
-if (!user) window.location.href = 'login.html';
-document.getElementById('userName').innerText = user.full_name;
+function checkAuth() {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user || !user.staff_id) {
+        window.location.href = 'login.html';
+        return false;
+    }
+    if (user.role !== 'Admin') {
+        window.location.href = 'donor_portal.html';
+        return false;
+    }
+    return user;
+}
+
+const user = checkAuth();
+if (user) {
+    document.getElementById('userName').innerText = user.full_name;
+}
 
 function logout() {
     localStorage.removeItem('user');
@@ -38,6 +52,7 @@ async function loadRequests(filter = 'all') {
         tbody.innerHTML = '';
         data.forEach(d => {
             const statusClass = d.STATUS === 'Approved' ? 'status-approved' : 
+                              d.STATUS === 'Fulfilled' ? 'status-fulfilled' :
                               d.STATUS === 'Rejected' ? 'status-rejected' : 'status-pending';
             
             tbody.innerHTML += `
@@ -52,6 +67,7 @@ async function loadRequests(filter = 'all') {
                         <select onchange="updateStatus(${d.REQUEST_ID}, this.value)" class="status-badge ${statusClass}" ${user.role === 'User' ? 'disabled' : ''}>
                             <option value="Pending" ${d.STATUS === 'Pending' ? 'selected' : ''}>Pending</option>
                             <option value="Approved" ${d.STATUS === 'Approved' ? 'selected' : ''}>Approved</option>
+                            <option value="Fulfilled" ${d.STATUS === 'Fulfilled' ? 'selected' : ''}>Fulfilled</option>
                             <option value="Rejected" ${d.STATUS === 'Rejected' ? 'selected' : ''}>Rejected</option>
                         </select>
                     </td>

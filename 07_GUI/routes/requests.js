@@ -89,17 +89,31 @@ router.get('/export/pending', async (req, res) => {
 router.post('/', async (req, res) => {
     let connection;
     try {
-        const { ref_recipient_id, ref_bank_id, blood_group, units_needed } = req.body;
-        if (!ref_recipient_id || !blood_group || !units_needed) {
-            return res.status(400).json({ error: 'Required fields missing' });
+        let { ref_recipient_id, ref_bank_id, blood_group, units_needed } = req.body;
+        
+        // 1. blood_group: required, valid value
+        const validBG = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
+        if (!blood_group || !validBG.includes(blood_group)) {
+            return res.status(400).json({ error: 'Invalid blood group value' });
         }
+
+        // 2. units_needed: required, 1-3
+        units_needed = parseInt(units_needed);
+        if (isNaN(units_needed) || units_needed < 1 || units_needed > 3) {
+            return res.status(400).json({ error: 'Units needed must be between 1 and 3' });
+        }
+
+        // 3. ref_bank_id: required
+        if (!ref_bank_id) return res.status(400).json({ error: 'Blood bank selection is required' });
+
+        if (!ref_recipient_id) return res.status(400).json({ error: 'Recipient ID is required' });
 
         connection = await getConnection();
         
         await connection.execute(
-            `INSERT INTO REQUEST (request_id, ref_recipient_id, ref_bank_id, blood_group, units_needed)
-             VALUES (seq_request.NEXTVAL, :ref_recipient_id, :ref_bank_id, :blood_group, :units_needed)`,
-            { ref_recipient_id, ref_bank_id: ref_bank_id || null, blood_group, units_needed },
+            `INSERT INTO REQUEST (request_id, ref_recipient_id, ref_bank_id, blood_group, units_needed, status, request_date)
+             VALUES (seq_request.NEXTVAL, :ref_recipient_id, :ref_bank_id, :blood_group, :units_needed, 'Pending', SYSDATE)`,
+            { ref_recipient_id, ref_bank_id, blood_group, units_needed },
             { autoCommit: true }
         );
 
@@ -121,8 +135,8 @@ router.put('/:id/status', async (req, res) => {
         const { id } = req.params;
         const { status } = req.body;
         
-        if (!['Pending', 'Approved', 'Rejected'].includes(status)) {
-            return res.status(400).json({ error: 'Invalid status' });
+        if (!['Pending', 'Approved', 'Rejected', 'Fulfilled'].includes(status)) {
+            return res.status(400).json({ error: 'Invalid status value' });
         }
 
         connection = await getConnection();

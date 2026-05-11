@@ -17,6 +17,7 @@ app.use('/api/recipients', require('./routes/recipients'));
 app.use('/api/requests', require('./routes/requests'));
 app.use('/api/stock', require('./routes/stock'));
 app.use('/api/dashboard', require('./routes/dashboard'));
+app.use('/api/donor-portal', require('./routes/donor_portal'));
 
 async function startServer() {
     try {

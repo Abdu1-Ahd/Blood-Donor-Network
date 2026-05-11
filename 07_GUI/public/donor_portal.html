@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donor Portal - Blood Donor Network</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">Donor Portal</div>
+        <div class="sidebar-nav">
+            <a href="#" class="active" onclick="showSection('profile', this)">My Profile</a>
+            <a href="#" onclick="showSection('register', this)">Register as Donor</a>
+            <a href="#" onclick="showSection('request', this)">Submit Blood Request</a>
+            <a href="#" onclick="showSection('donations', this)">My Donations</a>
+            <a href="#" onclick="showSection('my-requests', this)">My Requests</a>
+            <a href="#" onclick="showSection('availability', this)">Blood Availability</a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="topbar">
+            <div class="user-info">
+                <span id="userName">User Name</span>
+                <span id="userRole" class="status-badge" style="background-color: var(--secondary-light)">Donor</span>
+            </div>
+            <button class="btn btn-secondary" onclick="logout()">Logout</button>
+        </div>
+
+        <div class="content-wrapper">
+            <!-- Alert Box -->
+            <div id="msgBox" style="display: none; padding: 15px; border-radius: 4px; margin-bottom: 20px;"></div>
+
+            <!-- Profile Section -->
+            <div id="section-profile" class="portal-section">
+                <h2>My Profile</h2>
+                <div class="form-container">
+                    <div class="form-group">
+                        <label>Staff ID</label>
+                        <input type="text" id="prof-id" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" id="prof-username" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="prof-name">
+                    </div>
+                    <div class="form-group">
+                        <label>Contact Number</label>
+                        <input type="text" id="prof-contact">
+                    </div>
+                    <div class="form-group">
+                        <label>Role</label>
+                        <input type="text" id="prof-role" disabled>
+                    </div>
+                    <button class="btn" id="btn-save-profile" onclick="saveProfile()" style="margin-top: 15px;">Save Changes</button>
+                </div>
+            </div>
+
+            <!-- Register as Donor Section -->
+            <div id="section-register" class="portal-section" style="display: none;">
+                <h2>Register as Donor</h2>
+                <div class="form-container">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" id="reg-name">
+                        </div>
+                        <div class="form-group">
+                            <label>Date of Birth</label>
+                            <input type="date" id="reg-dob">
+                        </div>
+                        <div class="form-group">
+                            <label>Blood Group</label>
+                            <select id="reg-bg">
+                                <option value="">Select</option>
+                                <option value="A+">A+</option><option value="A-">A-</option>
+                                <option value="B+">B+</option><option value="B-">B-</option>
+                                <option value="AB+">AB+</option><option value="AB-">AB-</option>
+                                <option value="O+">O+</option><option value="O-">O-</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Contact Number</label>
+                            <input type="text" id="reg-contact">
+                        </div>
+                        <div class="form-group">
+                            <label>City</label>
+                            <input type="text" id="reg-city">
+                        </div>
+                    </div>
+                    <button class="btn" id="btn-register-donor" onclick="registerAsDonor()">Register Now</button>
+                </div>
+            </div>
+
+            <!-- Submit Blood Request Section -->
+            <div id="section-request" class="portal-section" style="display: none;">
+                <h2>Submit Blood Request</h2>
+                <div class="form-container">
+                    <div class="form-group">
+                        <label>Blood Group Needed</label>
+                        <select id="req-bg">
+                            <option value="">Select</option>
+                            <option value="A+">A+</option><option value="A-">A-</option>
+                            <option value="B+">B+</option><option value="B-">B-</option>
+                            <option value="AB+">AB+</option><option value="AB-">AB-</option>
+                            <option value="O+">O+</option><option value="O-">O-</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Units Needed (1-3)</label>
+                        <input type="number" id="req-units" min="1" max="3" value="1">
+                    </div>
+                    <div class="form-group">
+                        <label>Preferred Blood Bank</label>
+                        <select id="req-bank">
+                            <option value="">Loading banks...</option>
+                        </select>
+                    </div>
+                    <button class="btn" id="btn-submit-request" onclick="submitRequest()" style="margin-top: 15px;">Submit Request</button>
+                </div>
+            </div>
+
+            <!-- My Donations Section -->
+            <div id="section-donations" class="portal-section" style="display: none;">
+                <h2>My Donations</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Date</th>
+                                <th>Blood Group</th>
+                                <th>Units</th>
+                                <th>Blood Bank</th>
+                            </tr>
+                        </thead>
+                        <tbody id="donationsTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- My Requests Section -->
+            <div id="section-my-requests" class="portal-section" style="display: none;">
+                <h2>My Requests</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Date</th>
+                                <th>Blood Group</th>
+                                <th>Units</th>
+                                <th>Status</th>
+                                <th>Blood Bank</th>
+                            </tr>
+                        </thead>
+                        <tbody id="myRequestsTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Blood Availability Section -->
+            <div id="section-availability" class="portal-section" style="display: none;">
+                <div class="action-bar">
+                    <h2>Blood Availability</h2>
+                    <div class="form-group" style="flex-direction: row; align-items: center; gap: 10px;">
+                        <label>Filter Blood Group:</label>
+                        <select id="filter-bg" onchange="filterAvailability()">
+                            <option value="all">All</option>
+                            <option value="A+">A+</option><option value="A-">A-</option>
+                            <option value="B+">B+</option><option value="B-">B-</option>
+                            <option value="AB+">AB+</option><option value="AB-">AB-</option>
+                            <option value="O+">O+</option><option value="O-">O-</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Bank Name</th>
+                                <th>City</th>
+                                <th>Blood Group</th>
+                                <th>Units Available</th>
+                            </tr>
+                        </thead>
+                        <tbody id="availabilityTable"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/donor_portal.js"></script>
+</body>
+</html>

@@ -279,6 +279,7 @@ tbody tr:hover {
     color: white;
 }
 
-.status-pending { background-color: var(--warning); }
-.status-approved { background-color: var(--success); }
-.status-rejected { background-color: var(--primary); }
+.status-pending { background-color: #f1c40f; color: #333; }
+.status-approved { background-color: #2ecc71; }
+.status-fulfilled { background-color: #27ae60; }
+.status-rejected { background-color: #e74c3c; }

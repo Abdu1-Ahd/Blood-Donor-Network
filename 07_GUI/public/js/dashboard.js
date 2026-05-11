@@ -1,9 +1,21 @@
-// Check Auth
-const user = JSON.parse(localStorage.getItem('user'));
-if (!user) window.location.href = 'login.html';
+function checkAuth() {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user || !user.staff_id) {
+        window.location.href = 'login.html';
+        return false;
+    }
+    if (user.role !== 'Admin') {
+        window.location.href = 'donor_portal.html';
+        return false;
+    }
+    return user;
+}
 
-document.getElementById('userName').innerText = user.full_name;
-document.getElementById('userRole').innerText = user.role;
+const user = checkAuth();
+if (user) {
+    document.getElementById('userName').innerText = user.full_name;
+    document.getElementById('userRole').innerText = user.role;
+}
 
 function logout() {
     localStorage.removeItem('user');
@@ -57,9 +69,12 @@ async function loadDashboard() {
             if (pieChartInstance) pieChartInstance.destroy();
 
             const colors = pieData.map(d => {
-                if(d.STATUS === 'Approved') return '#27ae60';
-                if(d.STATUS === 'Pending') return '#f39c12';
-                return '#c0392b';
+                const status = d.STATUS.toLowerCase();
+                if(status === 'approved') return '#2ecc71';  // Light Green
+                if(status === 'fulfilled') return '#27ae60'; // Dark Green
+                if(status === 'pending') return '#f1c40f';   // Yellow
+                if(status === 'rejected') return '#e74c3c';  // Red
+                return '#34495e'; // Dark Blue/Gray for unknown
             });
 
             pieChartInstance = new Chart(ctx, {
