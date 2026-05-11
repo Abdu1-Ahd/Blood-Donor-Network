@@ -1,13 +1,13 @@
 // Check Auth
 const user = JSON.parse(localStorage.getItem('user'));
-if (!user) window.location.href = 'index.html';
+if (!user) window.location.href = 'login.html';
 
 document.getElementById('userName').innerText = user.full_name;
 document.getElementById('userRole').innerText = user.role;
 
 function logout() {
     localStorage.removeItem('user');
-    window.location.href = 'index.html';
+    window.location.href = 'login.html';
 }
 
 // Charts Instances

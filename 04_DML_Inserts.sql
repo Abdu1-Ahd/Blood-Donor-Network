@@ -61,18 +61,19 @@ INSERT INTO DONOR (donor_id, full_name, dob, blood_group, contact_no, city, is_e
 COMMIT;
 
 -- Section: STAFF Data
-INSERT INTO STAFF (staff_id, full_name, role, ref_bank_id, username, password_hash, hire_date) VALUES (seq_staff.NEXTVAL, 'Nadeem Shah', 'Admin', 1, 'nadeem_admin', 'hash123', TO_DATE('2015-01-10', 'YYYY-MM-DD'));
+INSERT INTO STAFF (staff_id, full_name, role, ref_bank_id, username, password_hash, hire_date) VALUES (seq_staff.NEXTVAL, 'Jazib', 'Admin', 1, 'Jazib', 'DB123', TO_DATE('2015-01-10', 'YYYY-MM-DD'));
 INSERT INTO STAFF (staff_id, full_name, role, ref_bank_id, username, password_hash, hire_date) VALUES (seq_staff.NEXTVAL, 'Salman Butt', 'Admin', 2, 'salman_admin', 'hash123', TO_DATE('2016-03-15', 'YYYY-MM-DD'));
 INSERT INTO STAFF (staff_id, full_name, role, ref_bank_id, username, password_hash, hire_date) VALUES (seq_staff.NEXTVAL, 'Fahad Mustafa', 'Admin', 3, 'fahad_admin', 'hash123', TO_DATE('2017-05-20', 'YYYY-MM-DD'));
 INSERT INTO STAFF (staff_id, full_name, role, ref_bank_id, username, password_hash, hire_date) VALUES (seq_staff.NEXTVAL, 'Asad Umar', 'Admin', 4, 'asad_admin', 'hash123', TO_DATE('2018-07-25', 'YYYY-MM-DD'));
 INSERT INTO STAFF (staff_id, full_name, role, ref_bank_id, username, password_hash, hire_date) VALUES (seq_staff.NEXTVAL, 'Imran Khan', 'Admin', 5, 'imran_admin', 'hash123', TO_DATE('2019-09-30', 'YYYY-MM-DD'));
 INSERT INTO STAFF (staff_id, full_name, role, ref_bank_id, username, password_hash, hire_date) VALUES (seq_staff.NEXTVAL, 'Shahid Afridi', 'Admin', 6, 'shahid_admin', 'hash123', TO_DATE('2020-11-05', 'YYYY-MM-DD'));
 INSERT INTO STAFF (staff_id, full_name, role, ref_bank_id, username, password_hash, hire_date) VALUES (seq_staff.NEXTVAL, 'Younis Khan', 'Admin', 7, 'younis_admin', 'hash123', TO_DATE('2021-01-10', 'YYYY-MM-DD'));
-INSERT INTO STAFF (staff_id, full_name, role, ref_bank_id, username, password_hash, hire_date) VALUES (seq_staff.NEXTVAL, 'Misbah ul Haq', 'Technician', 1, 'misbah_tech', 'hash123', TO_DATE('2015-02-15', 'YYYY-MM-DD'));
+INSERT INTO STAFF (staff_id, full_name, role, ref_bank_id, username, password_hash, hire_date) VALUES (seq_staff.NEXTVAL, 'Abdul Ahad', 'Technician', 1, 'Abdul_Ahad', 'DB0280', TO_DATE('2015-02-15', 'YYYY-MM-DD'));
 INSERT INTO STAFF (staff_id, full_name, role, ref_bank_id, username, password_hash, hire_date) VALUES (seq_staff.NEXTVAL, 'Babar Azam', 'Technician', 2, 'babar_tech', 'hash123', TO_DATE('2016-04-20', 'YYYY-MM-DD'));
 INSERT INTO STAFF (staff_id, full_name, role, ref_bank_id, username, password_hash, hire_date) VALUES (seq_staff.NEXTVAL, 'Shaheen Afridi', 'Technician', 3, 'shaheen_tech', 'hash123', TO_DATE('2017-06-25', 'YYYY-MM-DD'));
 INSERT INTO STAFF (staff_id, full_name, role, ref_bank_id, username, password_hash, hire_date) VALUES (seq_staff.NEXTVAL, 'Mohammad Rizwan', 'Technician', 4, 'rizwan_tech', 'hash123', TO_DATE('2018-08-30', 'YYYY-MM-DD'));
 INSERT INTO STAFF (staff_id, full_name, role, ref_bank_id, username, password_hash, hire_date) VALUES (seq_staff.NEXTVAL, 'Shadab Khan', 'Technician', 5, 'shadab_tech', 'hash123', TO_DATE('2019-10-05', 'YYYY-MM-DD'));
+INSERT INTO STAFF (staff_id, full_name, role, ref_bank_id, username, password_hash, hire_date) VALUES (seq_staff.NEXTVAL, 'General User', 'User', 1, 'User', 'DB123', TO_DATE('2025-01-01', 'YYYY-MM-DD'));
 INSERT INTO STAFF (staff_id, full_name, role, ref_bank_id, username, password_hash, hire_date) VALUES (seq_staff.NEXTVAL, 'Haris Rauf', 'Technician', 6, 'haris_tech', 'hash123', TO_DATE('2020-12-10', 'YYYY-MM-DD'));
 INSERT INTO STAFF (staff_id, full_name, role, ref_bank_id, username, password_hash, hire_date) VALUES (seq_staff.NEXTVAL, 'Fakhar Zaman', 'Technician', 7, 'fakhar_tech', 'hash123', TO_DATE('2021-02-15', 'YYYY-MM-DD'));
 INSERT INTO STAFF (staff_id, full_name, role, ref_bank_id, username, password_hash, hire_date) VALUES (seq_staff.NEXTVAL, 'Imam ul Haq', 'Technician', 8, 'imam_tech', 'hash123', TO_DATE('2022-04-20', 'YYYY-MM-DD'));

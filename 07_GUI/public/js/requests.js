@@ -1,10 +1,10 @@
 const user = JSON.parse(localStorage.getItem('user'));
-if (!user) window.location.href = 'index.html';
+if (!user) window.location.href = 'login.html';
 document.getElementById('userName').innerText = user.full_name;
 
 function logout() {
     localStorage.removeItem('user');
-    window.location.href = 'index.html';
+    window.location.href = 'login.html';
 }
 
 async function loadDropdowns() {
@@ -49,18 +49,24 @@ async function loadRequests(filter = 'all') {
                     <td>${d.UNITS_NEEDED}</td>
                     <td>${d.REQUEST_DATE}</td>
                     <td>
-                        <select onchange="updateStatus(${d.REQUEST_ID}, this.value)" class="status-badge ${statusClass}">
+                        <select onchange="updateStatus(${d.REQUEST_ID}, this.value)" class="status-badge ${statusClass}" ${user.role === 'User' ? 'disabled' : ''}>
                             <option value="Pending" ${d.STATUS === 'Pending' ? 'selected' : ''}>Pending</option>
                             <option value="Approved" ${d.STATUS === 'Approved' ? 'selected' : ''}>Approved</option>
                             <option value="Rejected" ${d.STATUS === 'Rejected' ? 'selected' : ''}>Rejected</option>
                         </select>
                     </td>
-                    <td>
+                    <td style="display: ${user.role === 'User' ? 'none' : 'table-cell'}">
                         <button class="btn btn-sm" onclick="deleteRequest(${d.REQUEST_ID})">Delete</button>
                     </td>
                 </tr>
             `;
         });
+        if (user.role === 'User') {
+            const formContainer = document.querySelector('.form-container');
+            if (formContainer) formContainer.style.display = 'none';
+            const ths = document.querySelectorAll('th');
+            ths.forEach(th => { if (th.innerText === 'Actions') th.style.display = 'none'; });
+        }
     } catch (err) {
         console.error('Error loading requests', err);
     }

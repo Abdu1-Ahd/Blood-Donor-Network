@@ -7,7 +7,7 @@ const {
 } = require('docx');
 const sizeOf = require('image-size').imageSize;
 
-const assetsDir = path.join(__dirname, '..', 'Assets');
+const assetsDir = path.join(__dirname, '..', 'assets');
 
 // Helper to get image buffer and scaled dimensions
 function getImageRun(filename, maxWidth = 500) {
@@ -445,6 +445,6 @@ const doc = new Document({
 });
 
 Packer.toBuffer(doc).then((buffer) => {
-    fs.writeFileSync("report_final.docx", buffer);
-    console.log("report_final.docx created successfully");
+    fs.writeFileSync("Blood_Donor_Network_Report.docx", buffer);
+    console.log("Blood_Donor_Network_Report.docx created successfully");
 });

@@ -79,12 +79,13 @@ router.get('/top-banks', async (req, res) => {
         connection = await getConnection();
         // Use FETCH FIRST 5 ROWS ONLY (Oracle 12c+)
         const result = await connection.execute(
-            `SELECT b.bank_name, b.city, NVL(SUM(s.units_available), 0) AS total_stock
-             FROM BLOOD_BANK b
-             LEFT JOIN BLOOD_STOCK s ON b.bank_id = s.ref_bank_id
-             GROUP BY b.bank_name, b.city
-             ORDER BY total_stock DESC
-             FETCH FIRST 5 ROWS ONLY`
+            `SELECT * FROM (
+                SELECT b.bank_name, b.city, NVL(SUM(s.units_available), 0) AS total_stock
+                FROM BLOOD_BANK b
+                LEFT JOIN BLOOD_STOCK s ON b.bank_id = s.ref_bank_id
+                GROUP BY b.bank_name, b.city
+                ORDER BY total_stock DESC
+             ) WHERE ROWNUM <= 5`
         );
         res.json(result.rows);
     } catch (err) {

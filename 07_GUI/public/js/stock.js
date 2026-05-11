@@ -1,10 +1,10 @@
 const user = JSON.parse(localStorage.getItem('user'));
-if (!user) window.location.href = 'index.html';
+if (!user) window.location.href = 'login.html';
 document.getElementById('userName').innerText = user.full_name;
 
 function logout() {
     localStorage.removeItem('user');
-    window.location.href = 'index.html';
+    window.location.href = 'login.html';
 }
 
 async function loadBanks() {
@@ -41,12 +41,18 @@ async function loadStock() {
                     <td><strong>${d.BLOOD_GROUP}</strong></td>
                     <td>${d.UNITS_AVAILABLE}</td>
                     <td>${d.LAST_UPDATED}</td>
-                    <td>
+                    <td style="display: ${user.role === 'User' ? 'none' : 'table-cell'}">
                         <button class="btn btn-sm btn-secondary" onclick='editStock(${JSON.stringify(d).replace(/'/g, "&#39;")})'>Edit Units</button>
                     </td>
                 </tr>
             `;
         });
+        if (user.role === 'User') {
+            const formContainer = document.querySelector('.form-container');
+            if (formContainer) formContainer.style.display = 'none';
+            const ths = document.querySelectorAll('th');
+            ths.forEach(th => { if (th.innerText === 'Actions') th.style.display = 'none'; });
+        }
     } catch (err) {
         console.error('Error loading stock', err);
     }

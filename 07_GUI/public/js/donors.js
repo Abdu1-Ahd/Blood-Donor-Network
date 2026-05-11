@@ -1,10 +1,10 @@
 const user = JSON.parse(localStorage.getItem('user'));
-if (!user) window.location.href = 'index.html';
+if (!user) window.location.href = 'login.html';
 document.getElementById('userName').innerText = user.full_name;
 
 function logout() {
     localStorage.removeItem('user');
-    window.location.href = 'index.html';
+    window.location.href = 'login.html';
 }
 
 async function loadDonors() {
@@ -51,13 +51,20 @@ function renderTable(data) {
                 <td>${d.CONTACT_NO}</td>
                 <td>${d.CITY}</td>
                 <td>${d.IS_ELIGIBLE}</td>
-                <td>
+                <td style="display: ${user.role === 'User' ? 'none' : 'table-cell'}">
                     <button class="btn btn-sm btn-secondary" onclick='editDonor(${JSON.stringify(d).replace(/'/g, "&#39;")})'>Edit</button>
                     <button class="btn btn-sm" onclick="deleteDonor(${d.DONOR_ID})">Delete</button>
                 </td>
             </tr>
         `;
     });
+
+    if (user.role === 'User') {
+        const formContainer = document.querySelector('.form-container');
+        if (formContainer) formContainer.style.display = 'none';
+        const ths = document.querySelectorAll('th');
+        ths.forEach(th => { if (th.innerText === 'Actions') th.style.display = 'none'; });
+    }
 }
 
 document.getElementById('donorForm').addEventListener('submit', async (e) => {

@@ -6,6 +6,8 @@ oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
 
 async function initDbPool() {
     try {
+        // Enable Thick mode for older Oracle DB versions (e.g., 11g XE)
+        oracledb.initOracleClient();
         await oracledb.createPool({
             user: process.env.DB_USER || 'system',
             password: process.env.DB_PASS || 'oracle',
