@@ -13,8 +13,9 @@
 - USE skills from `C:\Users\zawia\.antigravity\University\skills`.
 - APPLY `humanizer.skill` before finalizing text/reports.
 - APPLY human code style when writing/refactoring code.
-- STORE ALL temp files/drafts in `C:\Users\zawia\.antigravity\University\cache`.
-- PREFIX temp files with `[CACHE]_`.
+- STORE ALL temp files/drafts in cache/ at the project root.
+- PREFIX temp files with [CACHE]_.
+- This folder is gitignored. Deleting its contents will never break the project.
 - ASK user to delete cache files after task finishes.
 
 ## Code Style Rules
