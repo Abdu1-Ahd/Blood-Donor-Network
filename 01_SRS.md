@@ -33,3 +33,5 @@ This system makes the whole process faster and more organized. It tracks blood d
 
 ## System Scope
 The Blood Donor Network manages donor records, tracks blood inventory in blood banks, and processes blood requests from hospitals or recipients. It acts purely as an information system to connect donors with those in need. It does not include hardware integration for testing blood samples, nor does it handle payment processing or logistics for physically transporting blood between hospitals.
+
+<!-- session:7a11a218 -->
