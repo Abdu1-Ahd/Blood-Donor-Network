@@ -90,3 +90,5 @@
 - **REQUEST.ref_bank_id** references **BLOOD_BANK.bank_id** — each request is handled by one blood bank.
 - **HOSPITAL.ref_bank_id** references **BLOOD_BANK.bank_id** — each hospital is associated with one primary blood bank.
 - **STAFF.ref_bank_id** references **BLOOD_BANK.bank_id** — each staff member works at one blood bank.
+
+<!-- session:76c53d98b -->
