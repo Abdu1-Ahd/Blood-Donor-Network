@@ -24,3 +24,5 @@ Also in the bottom section, you'll see a dashed box wrapping around the HOSPITAL
 | **partners_with** | HOSPITAL, BLOOD_BANK | (M,N) | Standard |
 | **manages** | STAFF, BLOOD_BANK | (N,1) | Standard (One bank has one head staff: 1:1) |
 | **registered_at** | DONOR, BLOOD_BANK | (N,1) | Standard |
+
+<!-- session:ca9e8554b -->
